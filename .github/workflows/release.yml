@@ -19,8 +19,11 @@ jobs:
         uses: actions-ecosystem/action-get-merged-pull-request@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: print-labels
+        run: echo '${{ steps.get-all-merged-pull-requests.outputs.labels }}'
+        shell: bash
       - name: create-release
-        uses: release-drafter/release-drafter@v5.20.0
+        uses: release-drafter/release-drafter@v5.22.0
         with:
           publish: ${{ !contains(steps.get-all-merged-pull-requests.outputs.labels, 'no-releases') }}
           prerelease: true

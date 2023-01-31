@@ -1,8 +1,8 @@
 name: TestRelease
 on:
-  release:
-    types:
-      - published
+  push:
+    tags:
+      - v0.**
 
 jobs:
   testing:

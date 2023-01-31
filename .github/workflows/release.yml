@@ -26,7 +26,7 @@ jobs:
         uses: release-drafter/release-drafter@v5.22.0
         with:
           publish: ${{ !contains(steps.get-all-merged-pull-requests.outputs.labels, 'no-releases') }}
-          prerelease: true
+          prerelease: false
           config-name: release-drafter.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -3,10 +3,7 @@ on:
   release:
     types: 
       - published
-  push:
-    tags:
-      - v1.**
-
+      - created
 jobs:
   testing:
     runs-on: ubuntu-latest

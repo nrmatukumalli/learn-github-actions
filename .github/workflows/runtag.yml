@@ -1,0 +1,13 @@
+name: TestRelease
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: print-github-context
+        run: echo '${{ toJSON(github) }}'
+        shell: bash

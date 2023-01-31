@@ -2,6 +2,9 @@ name: TestRelease
 on:
   release:
     types: [published]
+  push:
+    tags:
+      - v1.**
 
 jobs:
   testing:

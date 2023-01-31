@@ -1,9 +1,8 @@
 name: TestRelease
 on:
-  release:
-    types: 
-      - published
-      - created
+  push:
+    tags:
+      - '*'
 jobs:
   testing:
     runs-on: ubuntu-latest

@@ -1,7 +1,7 @@
 name: TestRelease
 on:
   release:
-    type:
+    types:
       - published
 
 jobs:

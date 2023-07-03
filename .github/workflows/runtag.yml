@@ -2,7 +2,8 @@ name: TestRelease
 on:
   pull_request:
   push:
-    - 'main'
+    branches:
+      - 'main'
 
 jobs:
   list-changed-files:

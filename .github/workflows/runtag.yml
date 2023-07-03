@@ -20,6 +20,12 @@ jobs:
       #- name: runner-context
       #  run: echo "${{ toJson(runner) }}"
 
+      - name: github-event-before
+        run: echo ${{github.event.before}}
+
+      - name: github-event-after
+        run: echo ${{ github.event.after }}
+
       - name: checkout
         uses: actions/checkout@v3
         with:

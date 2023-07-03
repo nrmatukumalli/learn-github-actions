@@ -1,13 +1,39 @@
 name: TestRelease
 on:
-  release:
-    types:
-      - published
+  pull_request:
 
 jobs:
-  testing:
+  list-changed-files:
+    name: IdentifyChanges
     runs-on: ubuntu-latest
-    steps: 
-      - name: print-github-context
-        run: echo '${{ toJSON(github) }}'
+    defaults:
+      run:
         shell: bash
+    steps:
+      - name: github-context
+        run: echo "${{toJson(github)}}"
+      
+      - name: job-context
+        run: echo "${{ toJson(job) }}"
+      
+      - name: runner-context
+        run: echo "${{ toJson(runner) }}"
+
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0}}
+      
+      - name: get-changed-files
+        id: changed-files
+        run: |
+          if ${{ github.event_name == 'pull_request' }}; then
+            echo "changed-files=$(git diff --name-only -r HEAD^1 HEAD | xargs)" >> $GITHUB_OUTPUT
+          else
+            echo "changed-files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after}} | xargs)" >> GITHUB_OUTPUT
+          fi
+      - name: list-changed-files
+        run: |
+          for file in ${{ steps.changed-files.outputs.changed-files }}; do
+            echo "$file was changed"
+          done

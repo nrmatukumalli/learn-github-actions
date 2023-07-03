@@ -1,7 +1,7 @@
 name: TestRelease
 on:
   pull_request:
-    
+
 jobs:
   list-changed-files:
     name: IdentifyChanges
@@ -32,3 +32,8 @@ jobs:
           else
             echo "changed-files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after}} | xargs)" >> GITHUB_OUTPUT
           fi
+      - name: list-changed-files
+        run: |
+          for file in ${{ steps.changed-files.outputs.changed-files }}; do
+            echo "$file was changed"
+          done

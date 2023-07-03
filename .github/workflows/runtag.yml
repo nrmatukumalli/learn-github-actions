@@ -11,14 +11,14 @@ jobs:
       run:
         shell: bash
     steps:
-      - name: github-context
-        run: echo "${{toJson(github)}}"
-      
-      - name: job-context
-        run: echo "${{ toJson(job) }}"
-      
-      - name: runner-context
-        run: echo "${{ toJson(runner) }}"
+      #- name: github-context
+      #  run: echo "${{toJson(github)}}"
+      #
+      #- name: job-context
+      #  run: echo "${{ toJson(job) }}"
+      #
+      #- name: runner-context
+      #  run: echo "${{ toJson(runner) }}"
 
       - name: checkout
         uses: actions/checkout@v3

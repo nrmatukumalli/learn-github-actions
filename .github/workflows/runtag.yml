@@ -2,6 +2,8 @@ name: TestRelease
 on:
   pull_request:
   push:
+    branches:
+      - 'main'
 
 jobs:
   list-changed-files:
@@ -20,11 +22,8 @@ jobs:
       #- name: runner-context
       #  run: echo "${{ toJson(runner) }}"
 
-      - name: github-event-before
-        run: echo ${{github.event.before}}
-
-      - name: github-event-after
-        run: echo ${{ github.event.after }}
+      - name: github-event
+        run: echo "${{ toJson(github.event) }}"
 
       - name: checkout
         uses: actions/checkout@v3

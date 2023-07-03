@@ -21,7 +21,7 @@ jobs:
       #  run: echo "${{ toJson(runner) }}"
 
       - name: github-event
-        run: echo ${{github.event}}
+        run: echo "${{ toJson(github.event) }}"
 
       - name: checkout
         uses: actions/checkout@v3

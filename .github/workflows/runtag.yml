@@ -1,9 +1,7 @@
 name: TestRelease
 on:
-  release:
-    types:
-      - published
-
+  pull_request:
+    
 jobs:
   list-changed-files:
     name: IdentifyChanges

@@ -44,7 +44,7 @@ jobs:
       - name: echo-event
         run: echo "Running on PR"
   run-on-push-to-main:
-    if: github.ref == 'refs/head/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     name: run-on-push-to-main
     runs-on: ubuntu-latest
     steps:

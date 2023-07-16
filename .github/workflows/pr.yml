@@ -33,14 +33,6 @@ jobs:
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}
         run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
   run-on-pr-event:
     if: github.event_name == 'pull_request'
     name: run-on-events
@@ -52,7 +44,7 @@ jobs:
       - name: echo-event
         run: echo "Running on PR"
   run-on-push-to-main:
-    if: github.ref == 'refs/head/main'
+    if: github.ref == 'refs/head/main' && github.event_name == 'push'
     name: run-on-push-to-main
     runs-on: ubuntu-latest
     steps:
@@ -60,7 +52,7 @@ jobs:
         run: echo "Pushed to main"
   run-on-tag:
     name: on-tag-creation
-    if: contains(github.ref, 'ref/tags/')
+    if: contains(github.ref, 'refs/tags') && github.event_name == 'push'
     runs-on: ubuntu-latest
     defaults:
       run:

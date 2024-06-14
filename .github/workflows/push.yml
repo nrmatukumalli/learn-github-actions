@@ -1,4 +1,4 @@
-name: PullRequest
+name: push
 on:
   push:
     branches:
@@ -36,3 +36,15 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run YAML to Github Output Action
+        id: config
+        uses: christian-ci/action-yaml-github-output@v2
+        with:
+          file_path: config.yaml
+          main_key: modules
+          sub_key: us-east-1
+      - name: print-variables
+        run: |
+          echo "outputs: ${{ steps.config.outputs }}"

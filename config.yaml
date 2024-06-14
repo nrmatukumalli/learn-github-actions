@@ -1,0 +1,21 @@
+stack_version: 1.0.0
+
+modules:
+  us-east-1:
+    workspace: true
+    datalake: false
+    orchestration: false
+    stream: false
+    transforms: false
+    events: false
+    models: false
+    dashboards: false
+  us-west-2:
+    workspace: true
+    datalake: false
+    orchestration: false
+    stream: false
+    transforms: false
+    events: false
+    models: false
+    dashboards: false

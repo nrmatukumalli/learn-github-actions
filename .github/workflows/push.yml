@@ -47,4 +47,4 @@ jobs:
           sub_key: us-east-1
       - name: print-variables
         run: |
-          echo "outputs: ${{ steps.config.outputs }}"
+          echo "workspace: ${{ steps.config.outputs.workspace }}"

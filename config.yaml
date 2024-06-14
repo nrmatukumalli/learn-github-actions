@@ -1,21 +1,27 @@
-stack_version: 1.0.0
+stack_version: 0.133.4
+
+vpc_cidr_blocks:
+  us-east-1:
+    dev: 172.18.64.0/21
+    stg: 172.18.72.0/21
+    uat: 172.18.80.0/21
+    prd: 172.18.88.0/21
+  us-west-2:
+    uat: 172.18.112.0/21
+    prd: 172.18.120.0/21
 
 modules:
   us-east-1:
+    network: true
+    peering: true
+    credentials: true
     workspace: true
-    datalake: false
-    orchestration: false
-    stream: false
-    transforms: false
-    events: false
-    models: false
-    dashboards: false
+    encryption: true
+    datalake: true
   us-west-2:
+    network: true
+    peering: true
+    credentials: true
     workspace: true
-    datalake: false
-    orchestration: false
-    stream: false
-    transforms: false
-    events: false
-    models: false
-    dashboards: false
+    encryption: true
+    datalake: true

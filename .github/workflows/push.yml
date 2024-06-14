@@ -38,13 +38,12 @@ jobs:
         run: echo "$MATRIX_CONTEXT"
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Run YAML to Github Output Action
+      - name: read-yaml-file
+        uses: pietrobolcato/action-read-yaml@1.0.0
         id: config
-        uses: christian-ci/action-yaml-github-output@v2
         with:
-          file_path: config.yaml
-          main_key: modules
-          sub_key: us-east-1
+          config: ${{ github.workspace }}/config.yaml
+
       - name: print-variables
         run: |
-          echo "workspace: ${{ steps.config.outputs.workspace }}"
+          echo "workspace: ${{ steps.config.outputs.modules }}"

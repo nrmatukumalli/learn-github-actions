@@ -10,7 +10,45 @@ on:
       - 'v*.*.*'
 
 jobs:
+  context: 
+    name: context
+    runs-on: ubuntu-latest
+    outputs:
+      event-type: ${{ steps.config.outputs.event_type }}
+      action: ${{ steps.config.outputs.action }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: github-context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: determine-action
+        id: config
+        run: |
+          EVENT_NAME="${{ github.event_name }}"
+          BRANCH="${GITHUB_REF#refs/heads/}"
+          TAG="${GITHUB_REF#refs/tags/}"
+
+          action=plan
+
+          if [ "$EVENT_NAME" == "push" && "$BRANCH" == "main" ]; then
+            event_type="merge"
+            action="apply"
+          fi
+
+          if [ ("$EVENT_NAME" == "push" || "$EVENT_NAME" == "release") && "$TAG" != "" ]; then
+            event_type="release"
+            action="apply"
+          fi
+
+          echo "event_type=$event_type" >> $GITHUB_OUTPUT
+          echo "action=$action" >> $GITHUB_OUTPUT
+        shell: bash
+
   list-changed-files:
+    needs: [context]
     name: IdentifyChanges
     runs-on: ubuntu-latest
     defaults:
@@ -33,6 +71,11 @@ jobs:
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}
         run: echo "$RUNNER_CONTEXT"
+      - name: print-outputs
+        run: 
+          echo "${{ needs.context.outputs.action }}"
+          echo "${{ needs.context.outputs.event_type }}"
+        shell: bash
   run-on-pr-event:
     if: github.event_name == 'pull_request'
     name: run-on-events

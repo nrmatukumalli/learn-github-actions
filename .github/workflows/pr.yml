@@ -31,6 +31,10 @@ jobs:
           BRANCH="${GITHUB_REF#refs/heads/}"
           TAG="${GITHUB_REF#refs/tags/}"
 
+          echo $EVENT_NAME
+          echo $BRANCH
+          echo $TAG
+
           action=plan
 
           if [[ "$EVENT_NAME" == "push" && "$BRANCH" == "main" ]]; then

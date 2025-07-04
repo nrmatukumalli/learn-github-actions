@@ -45,12 +45,16 @@ jobs:
 
           echo $GITHUB_REF
           echo event_name=$EVENT_NAME
-          echo branch_name=$BRANCH
+          echo branch_name=$REF
           echo event_type=$event_type
           echo action=$action
 
           echo "event_type=$event_type" >> $GITHUB_OUTPUT
           echo "action=$action" >> $GITHUB_OUTPUT
+        shell: bash
+      - name: print
+        run: 
+          echo "${{ steps.config.outputs.event_type }}"
         shell: bash
 
   list-changed-files:

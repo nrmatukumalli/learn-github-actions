@@ -43,6 +43,7 @@ jobs:
             action="apply"
           fi
 
+          echo $GITHUB_REF
           echo event_name=$EVENT_NAME
           echo branch_name=$BRANCH
           echo tag=$TAG

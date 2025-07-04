@@ -28,17 +28,17 @@ jobs:
         id: config
         run: |
           EVENT_NAME="${{ github.event_name }}"
-          BRANCH="${GITHUB_REF#refs/heads/}"
-          TAG="${GITHUB_REF#refs/tags/}"
+          REF="${{ github.ref }}"
+    
           set -x
           action=plan
 
-          if [[ "$EVENT_NAME" == "push" && "$BRANCH" == "main" ]]; then
+          if [[ "$EVENT_NAME" == "push" && "$REF" == "refs/heads/main" ]]; then
             event_type="merge"
             action="apply"
           fi
 
-          if [[ ("$EVENT_NAME" == "push" || "$EVENT_NAME" == "release") && "$TAG" != "" ]]; then
+          if [[ ("$EVENT_NAME" == "push" || "$EVENT_NAME" == "release") && "$REF" != "refs/heads/main" ]]; then
             event_type="release"
             action="apply"
           fi
@@ -46,7 +46,6 @@ jobs:
           echo $GITHUB_REF
           echo event_name=$EVENT_NAME
           echo branch_name=$BRANCH
-          echo tag=$TAG
           echo event_type=$event_type
           echo action=$action
 

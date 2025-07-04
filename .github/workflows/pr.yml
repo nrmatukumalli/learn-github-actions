@@ -30,7 +30,7 @@ jobs:
           EVENT_NAME="${{ github.event_name }}"
           BRANCH="${GITHUB_REF#refs/heads/}"
           TAG="${GITHUB_REF#refs/tags/}"
-
+          set -x
           action=plan
 
           if [[ "$EVENT_NAME" == "push" && "$BRANCH" == "main" ]]; then

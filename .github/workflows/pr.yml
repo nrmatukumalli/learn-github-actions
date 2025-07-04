@@ -31,10 +31,6 @@ jobs:
           BRANCH="${GITHUB_REF#refs/heads/}"
           TAG="${GITHUB_REF#refs/tags/}"
 
-          echo $EVENT_NAME
-          echo $BRANCH
-          echo $TAG
-
           action=plan
 
           if [[ "$EVENT_NAME" == "push" && "$BRANCH" == "main" ]]; then
@@ -46,6 +42,12 @@ jobs:
             event_type="release"
             action="apply"
           fi
+
+          echo event_name=$EVENT_NAME
+          echo branch_name=$BRANCH
+          echo tag=$TAG
+          echo event_type=$event_type
+          echo action=$action
 
           echo "event_type=$event_type" >> $GITHUB_OUTPUT
           echo "action=$action" >> $GITHUB_OUTPUT

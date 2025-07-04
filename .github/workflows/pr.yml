@@ -33,12 +33,12 @@ jobs:
 
           action=plan
 
-          if [ "$EVENT_NAME" == "push" && "$BRANCH" == "main" ]; then
+          if [[ "$EVENT_NAME" == "push" && "$BRANCH" == "main" ]]; then
             event_type="merge"
             action="apply"
           fi
 
-          if [ ("$EVENT_NAME" == "push" || "$EVENT_NAME" == "release") && "$TAG" != "" ]; then
+          if [[ ("$EVENT_NAME" == "push" || "$EVENT_NAME" == "release") && "$TAG" != "" ]]; then
             event_type="release"
             action="apply"
           fi

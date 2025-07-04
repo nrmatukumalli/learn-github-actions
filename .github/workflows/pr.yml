@@ -84,7 +84,7 @@ jobs:
       - name: print-outputs
         run: 
           echo "${{ needs.context.outputs.action }}"
-          echo "${{ needs.context.outputs.event_type }}"
+          echo "${{ needs.context.outputs.event-type }}"
         shell: bash
   run-on-pr-event:
     if: github.event_name == 'pull_request'
